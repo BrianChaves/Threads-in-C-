@@ -1,7 +1,6 @@
 
 #include "JuegoTorresHanoi.h"
 #include <chrono>
-
 template<class t>
 JuegoTorresHanoi<t>::~JuegoTorresHanoi() {
     delete torre_uno;
@@ -21,30 +20,29 @@ void JuegoTorresHanoi<t>::jugar() {
     int opcion = 1;
     int clave = 0;
     do {
-        cout << "-----------------Menu Principal------------------------" << endl;
-        cout << "( 1 )  Ingresar al Juego" << endl;
-        cout << "( 2 )  Mostrar el minimo numero de movimientos para ganar" << endl;
-        cout << "( 3 )  Mostrar el algoritmo completo paso a paso de la solucion" << endl;
-        cout << "( 0 )  Salir  " << endl << endl;
-        cout << "--------------------------------------------" << endl;
-        cout << "Digite una opcion del menu:  ";
-        cout<<endl;
-        cin >> opcion;
+        std::cout << "-----------------Menu Principal------------------------" << std::endl;
+        std::cout << "( 1 )  Ingresar al Juego" << std::endl;
+        std::cout << "( 2 )  Mostrar el minimo numero de movimientos para ganar" << std::endl;
+        std::cout << "( 3 )  Mostrar el algoritmo completo paso a paso de la solucion" << std::endl;
+        std::cout << "( 0 )  Salir  " << std::endl << std::endl;
+        std::cout << "--------------------------------------------" << std::endl;
+        std::cout << "Digite una opcion del menu:  ";
+        std::cin >> opcion;
         switch (opcion){
             case 1 :
-                cout<<endl;
+                std::cout << std::endl;
                 menuSecundario();
                 break;
             case 2 :
-                cout << "MOVIMIENTOS MINIMOS PARA GANAR: 15"<<endl;
+                std::cout << "MOVIMIENTOS MINIMOS PARA GANAR: 15"<< std::endl;
                 break;
             case 3 :
-                cout<<"Digite clave: ";
-                cin >> clave;
+                std::cout << "Digite clave: ";
+                std::cin >> clave;
                 opc3Principal(clave);
                 break;
             default:
-                cout<<"Opcion incorrecta"<<endl;
+                std::cout << "Opcion incorrecta"<< std::endl;
                 break;
         }
     } while ( opcion != 0);
@@ -57,128 +55,43 @@ void JuegoTorresHanoi<t>::menuSecundario() {
     int contador = 0;
     do {
         dibujar();
-        cout<< "CANTIDAD DE MOVIMIENTOS REALIZADOS: "<<contador<<endl;
-        cout << "-----------------Menu Juego------------------------" << endl;
-        cout << "( 1 )  De la pila 1 a la pila 2 " << endl;
-        cout << "( 2 )  De la pila 1 a la pila 3 " << endl;
-        cout << "( 3 )  De la pila 2 a la pila 1 " << endl;
-        cout << "( 4 )  De la pila 2 a la pila 3 " << endl;
-        cout << "( 5 )  De la pila 3 a la pila 1 " << endl;
-        cout << "( 6 )  De la pila 3 a la pila 2 " << endl;
-        cout << "( 7 )  Reiniciar el juego  "  << endl;
-        cout << "( 0 )  Salir  "  << endl;
-        cout << "--------------------------------------------" << endl;
-        cout << "Digite una opcion del menu:  ";
-        cin >> opc;
-        cout<<endl;
+        std::cout << "CANTIDAD DE MOVIMIENTOS REALIZADOS: "<< contador << std::endl;
+        std::cout << "-----------------Menu Juego------------------------" << std::endl;
+        std::cout << "( 1 )  De la pila 1 a la pila 2 " << std::endl;
+        std::cout << "( 2 )  De la pila 1 a la pila 3 " << std::endl;
+        std::cout << "( 3 )  De la pila 2 a la pila 1 " << std::endl;
+        std::cout << "( 4 )  De la pila 2 a la pila 3 " << std::endl;
+        std::cout << "( 5 )  De la pila 3 a la pila 1 " << std::endl;
+        std::cout << "( 6 )  De la pila 3 a la pila 2 " << std::endl;
+        std::cout << "( 7 )  Reiniciar el juego  "  << std::endl;
+        std::cout << "( 0 )  Salir  "  << std::endl;
+        std::cout << "--------------------------------------------" << std::endl;
+        std::cout << "Digite una opcion del menu:  ";
+        std::cin >> opc;
+        std::cout << std::endl;
         switch (opc){
             case 0:
                 exit(0);
             case 1 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-                if(!torre_uno->empty()){
-                    torre_dos->push(torre_uno->top());
-                    torre_uno->pop();
-                    contador++;
-                } else {
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
+                // Crea un hilo que ejecuta el método moverTorre de la clase JuegoTorresHanoi.
+                // Pasamos las pilas torre_uno y torre_dos como argumentos, junto con una referencia al contador.
+                // Esto permite que el hilo mueva una ficha de la torre_uno a la torre_dos de manera asíncrona.
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_uno, torre_dos, std::ref(contador)).detach();
                 break;
             case 2 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-
-                if(!torre_uno->empty()){
-                    torre_tres->push(torre_uno->top());
-                torre_uno->pop();
-                contador++;
-                }else{
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_uno, torre_tres, std::ref(contador)).detach();
                 break;
             case 3 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-
-                if(!torre_dos->empty()){
-                    torre_uno->push(torre_dos->top());
-                torre_dos->pop();
-                contador++;
-                }else{
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_dos, torre_uno, std::ref(contador)).detach();
                 break;
-
             case 4 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-
-                if(!torre_dos->empty()){
-                    torre_tres->push(torre_dos->top());
-                torre_dos->pop();
-                contador++;
-                }else{
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_dos, torre_tres, std::ref(contador)).detach();
                 break;
-
             case 5 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-
-                if(!torre_tres->empty()){
-                    torre_uno->push(torre_tres->top());
-                torre_tres->pop();
-                contador++;
-                }else{
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_tres, torre_uno, std::ref(contador)).detach();
                 break;
             case 6 :
-            {
-                auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
-
-                if(!torre_tres->empty()){
-                    torre_dos->push(torre_tres->top());
-                torre_tres->pop();
-                contador++;
-                }else{
-                    contador++;
-                    cout<<"No se puede realizar el movimiento"<<endl;
-                }
-                auto end = std::chrono::steady_clock::now(); // Fin del temporizador
-                std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
-                std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
-            }
-
+                std::thread(&JuegoTorresHanoi::moverTorre, this, torre_tres, torre_dos, std::ref(contador)).detach();
                 break;
             case 7 :
                 for(int i = 0; i <4; i++){
@@ -195,7 +108,7 @@ void JuegoTorresHanoi<t>::menuSecundario() {
                 menuSecundario();
                 break;
             default:
-                cout<<"Opcion incorrecta"<<endl;
+                std::cout << "Opcion incorrecta"<< std::endl;
                 break;
         }
     } while ( opc != 0);
@@ -204,43 +117,44 @@ void JuegoTorresHanoi<t>::menuSecundario() {
 template<class t>
 void JuegoTorresHanoi<t>::opc3Principal(int clave) {
     if(clave == 123){
-        cout <<" 1)   De la Pila 1 a la Pila 2\n"
-               "  2)   De la Pila 1 a la Pila 3\n"
-               "  3)   De la Pila 2 a la Pila 3\n"
-               "  4)   De la Pila 1 a la Pila 2\n"
-               "  5)   De la Pila 3 a la Pila 1\n"
-               "  6)   De la Pila 3 a la Pila 2\n"
-               "  7)   De la Pila 1 a la Pila 2\n"
-               "  8)   De la Pila 1 a la Pila 3\n"
-               "  9)   De la Pila 2 a la Pila 3\n"
-               "  10)  De la Pila 2 a la Pila 1\n"
-               "  11)  De la Pila 3 a la Pila 1\n"
-               "  12)  De la Pila 2 a la Pila 3\n"
-               "  13)  De la Pila 1 a la Pila 2\n"
-               "  14)  De la Pila 1 a la Pila 3\n"
-               "  15)  De la Pila 2 a la Pila 3\n";
-    }else{
-        cout <<" CLAVE INCORRECTA"<<endl;
+        std::cout <<" 1)   De la Pila 1 a la Pila 2\n"
+                    "  2)   De la Pila 1 a la Pila 3\n"
+                    "  3)   De la Pila 2 a la Pila 3\n"
+                    "  4)   De la Pila 1 a la Pila 2\n"
+                    "  5)   De la Pila 3 a la Pila 1\n"
+                    "  6)   De la Pila 3 a la Pila 2\n"
+                    "  7)   De la Pila 1 a la Pila 2\n"
+                    "  8)   De la Pila 1 a la Pila 3\n"
+                    "  9)   De la Pila 2 a la Pila 3\n"
+                    "  10)  De la Pila 2 a la Pila 1\n"
+                    "  11)  De la Pila 3 a la Pila 1\n"
+                    "  12)  De la Pila 2 a la Pila 3\n"
+                    "  13)  De la Pila 1 a la Pila 2\n"
+                    "  14)  De la Pila 1 a la Pila 3\n"
+                    "  15)  De la Pila 2 a la Pila 3\n";
+    } else {
+        std::cout <<" CLAVE INCORRECTA"<<std::endl;
     }
 }
+
 template<class t>
 void JuegoTorresHanoi<t>::dibujar(){
-    cout << "\n====================================" << endl;
-    cout<< "                       ||"<<endl;
+    std::cout << "\n====================================" << std::endl;
+    std::cout<< "                       ||"<<std::endl;
     torre_uno->imprimir();
-    cout<< "||Torre 1"<<endl;
-    cout<< "                       ||";cout << endl; cout <<endl;
+    std::cout<< "||Torre 1"<<std::endl;
+    std::cout<< "                       ||";std::cout << std::endl; std::cout <<std::endl;
 
-    cout<< "                       ||"<<endl;
+    std::cout<< "                       ||"<<std::endl;
     torre_dos->imprimir();
-    cout<< "||Torre 2"<<endl;
-    cout<< "                       ||";cout << endl; cout <<endl;
+    std::cout<< "||Torre 2"<<std::endl;
+    std::cout<< "                       ||";std::cout << std::endl; std::cout <<std::endl;
 
-    cout<< "                       ||"<<endl;
+    std::cout<< "                       ||"<<std::endl;
     torre_tres->imprimir();
-    cout<< "||Torre 3"<<endl;
-    cout<< "                       ||";cout << endl; cout <<endl;
-    cout << "\n====================================" << endl;
+    std::cout<< "||Torre 3"<<std::endl;
+    std::cout<< "                       ||";std::cout << std::endl; std::cout <<std::endl;
+    std::cout << "\n====================================" << std::endl;
 }
 
 template<class t>
@@ -250,4 +164,20 @@ void JuegoTorresHanoi<t>::generarNumeros(){
     }
 }
 
+template<class t>
+void JuegoTorresHanoi<t>::moverTorre(PilaLista<t>* origen, PilaLista<t>* destino, int& contador) {
+    std::lock_guard<std::mutex> lock(mtx); // Bloquear el mutex para evitar condiciones de carrera
+    auto start = std::chrono::steady_clock::now(); // Inicio del temporizador
+    if (!origen->empty()) {
+        destino->push(origen->top());
+        origen->pop();
+        contador++;
+    } else {
+        contador++;
+        std::cout << "No se puede realizar el movimiento" << std::endl;
+    }
+    auto end = std::chrono::steady_clock::now(); // Fin del temporizador
+    std::chrono::duration<double> elapsed_seconds = end - start; // Tiempo transcurrido
+    std::cout << "Tiempo de iteración: " << elapsed_seconds.count() << "s\n"; // Imprimir el tiempo transcurrido
+}
 

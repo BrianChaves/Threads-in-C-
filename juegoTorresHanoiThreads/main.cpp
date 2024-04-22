@@ -1,10 +1,10 @@
 #include <iostream>
+#include <thread>
 #include "JuegoTorresHanoi.cpp"
 int main() {
     try{
-        JuegoTorresHanoi<int> *juego = new JuegoTorresHanoi<int>;
-        juego->jugar();
-        delete juego;
+        JuegoTorresHanoi<int> juego;
+        juego.jugar();
     }catch (RuntimeException e){
         cout<<"Error: "<<e.getMessage()<< '\n';
     }
