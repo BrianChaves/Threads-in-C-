@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\EXAMEN_DATOS.dir/objects.a
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\ar.exe qc CMakeFiles\EXAMEN_DATOS.dir/objects.a @CMakeFiles\EXAMEN_DATOS.dir\objects1.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\EXAMEN_DATOS.dir/objects.a -Wl,--no-whole-archive -o EXAMEN_DATOS.exe -Wl,--out-implib,libEXAMEN_DATOS.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\EXAMEN_DATOS.dir\linkLibs.rsp
