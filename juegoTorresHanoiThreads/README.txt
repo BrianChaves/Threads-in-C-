@@ -1,5 +1,5 @@
 Esta es la conclusion de un examen de datos, donde se realiza la implementacion de un juego
-de la torre de Hanoi donde se usaron Templates, Nodo, Listas.
+de la torre de Hanoi donde se usaron Templates, Nodo, Listas. La Unica diferencia a la otra solucion es que esta utiliza hilos
 
 Cuando se corre la aplicacion esta va a mostrar:
 ( 1 )  Ingresar al Juego.
