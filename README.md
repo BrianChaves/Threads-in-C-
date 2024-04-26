@@ -24,11 +24,11 @@ El proyecto consiste en una aplicación de consola que permite jugar al juego de
 ## Resultados del proyecto del Proyecto
 A continuacion de va a mostrar una tabla con los resultados de la solucion completa del algoritmo y se va a realizar una comparacion de tiempos entre el uso de hilos y cuando no se usan hilos. 
 
-                      | Implementación       | Tiempo de Ejecución (s) | Tiempo Restante (s) |
-----------------------|----------------------|-------------------------|---------------------|
-                      | Sin Hilos            | 10.5                    | 4.2                 |
-                      | Con Hilos            | 6.8                     | 2.9                 |
-----------------------|----------------------|-------------------------|---------------------|
+|                      | Implementación       | Tiempo de Ejecución (s) | Tiempo Restante (s) |
+|----------------------|----------------------|-------------------------|---------------------|
+|                      | Sin Hilos            | 10.5                    | 4.2                 |
+|                      | Con Hilos            | 6.8                     | 2.9                 |
+|----------------------|----------------------|-------------------------|---------------------|
 
 
 ## Ejecución del Proyecto
