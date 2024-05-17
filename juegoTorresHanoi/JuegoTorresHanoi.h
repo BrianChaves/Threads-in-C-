@@ -18,6 +18,9 @@ public:
     void opc3Principal(int clave);
     void dibujar();
     void generarNumeros();
+   void realizarTodosLosMovimientos();
+    void realizarMovimiento(PilaLista<t>* origen, PilaLista<t>* destino); // Declaración del método realizarMovimiento
+
 };
 
 
