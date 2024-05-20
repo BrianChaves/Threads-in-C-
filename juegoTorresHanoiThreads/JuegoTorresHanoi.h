@@ -8,6 +8,8 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
+#include <vector>
+
 
 template <class t>
 class JuegoTorresHanoi {
@@ -25,6 +27,8 @@ public:
     void dibujar();
     void generarNumeros();
     void moverTorre(PilaLista<t>* origen, PilaLista<t>* destino, int& contador);
+    void realizarTodosLosMovimientos();
+    void realizarMovimiento(PilaLista<t>* origen, PilaLista<t>* destino);
 };
 
 

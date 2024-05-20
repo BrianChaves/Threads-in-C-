@@ -24,6 +24,7 @@ void JuegoTorresHanoi<t>::jugar() {
         std::cout << "( 1 )  Ingresar al Juego" << std::endl;
         std::cout << "( 2 )  Mostrar el minimo numero de movimientos para ganar" << std::endl;
         std::cout << "( 3 )  Mostrar el algoritmo completo paso a paso de la solucion" << std::endl;
+        cout << "( 4 )  Realizar todos los movimientos y medir el tiempo total" << endl; // New option
         std::cout << "( 0 )  Salir  " << std::endl << std::endl;
         std::cout << "--------------------------------------------" << std::endl;
         std::cout << "Digite una opcion del menu:  ";
@@ -41,12 +42,106 @@ void JuegoTorresHanoi<t>::jugar() {
                 std::cin >> clave;
                 opc3Principal(clave);
                 break;
+            case 4:
+                realizarTodosLosMovimientos(); // Perform all moves
+                break;
+
             default:
                 std::cout << "Opcion incorrecta"<< std::endl;
                 break;
         }
     } while ( opcion != 0);
 }
+
+template<class t>
+void JuegoTorresHanoi<t>::realizarTodosLosMovimientos() {
+    generarNumeros();
+    int contador = 0;
+    auto start = std::chrono::steady_clock::now();
+
+    auto realizarMovimientosEnRango = [&](int inicio, int fin) {
+        for (int i = inicio; i <= fin; ++i) {
+            cout << "Movimiento " << i << ":" << endl;
+            switch (i) {
+                case 1:
+                    realizarMovimiento(torre_uno, torre_dos);
+                    break;
+                case 2:
+                    realizarMovimiento(torre_uno, torre_tres);
+                    break;
+                case 3:
+                    realizarMovimiento(torre_dos, torre_tres);
+                    break;
+                case 4:
+                    realizarMovimiento(torre_uno, torre_dos);
+                    break;
+                case 5:
+                    realizarMovimiento(torre_tres, torre_uno);
+                    break;
+                case 6:
+                    realizarMovimiento(torre_tres, torre_dos);
+                    break;
+                case 7:
+                    realizarMovimiento(torre_uno, torre_dos);
+                    break;
+                case 8:
+                    realizarMovimiento(torre_uno, torre_tres);
+                    break;
+                case 9:
+                    realizarMovimiento(torre_dos, torre_tres);
+                    break;
+                case 10:
+                    realizarMovimiento(torre_dos, torre_uno);
+                    break;
+                case 11:
+                    realizarMovimiento(torre_tres, torre_uno);
+                    break;
+                case 12:
+                    realizarMovimiento(torre_dos, torre_tres);
+                    break;
+                case 13:
+                    realizarMovimiento(torre_uno, torre_dos);
+                    break;
+                case 14:
+                    realizarMovimiento(torre_dos, torre_tres);
+                    break;
+                case 15:
+                    realizarMovimiento(torre_uno, torre_tres);
+                    break;
+            }
+            contador++;
+            dibujar();
+        }
+    };
+
+    std::thread hilo_uno(realizarMovimientosEnRango, 1, 5);
+    std::thread hilo_dos(realizarMovimientosEnRango, 6, 10);
+    std::thread hilo_tres(realizarMovimientosEnRango, 11, 15);
+
+    hilo_uno.join();
+    hilo_dos.join();
+    hilo_tres.join();
+
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+
+    cout << "Total de movimientos realizados: " << contador << endl;
+    std::cout << "Tiempo total: " << elapsed_seconds.count() << "s\n";
+}
+
+template<class t>
+void JuegoTorresHanoi<t>::realizarMovimiento(PilaLista<t>* origen, PilaLista<t>* destino) {
+    lock_guard<mutex> lock(mtx);  // Bloquear el mutex durante la operación de movimiento
+    if (!origen->empty()) {
+        destino->push(origen->top());
+        origen->pop();
+    } else {
+        cout << "No se puede realizar el movimiento" << endl;
+    }
+}
+
+
+
 
 template<class t>
 void JuegoTorresHanoi<t>::menuSecundario() {
