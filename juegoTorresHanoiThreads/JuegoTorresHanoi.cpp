@@ -103,10 +103,10 @@ void JuegoTorresHanoi<t>::realizarTodosLosMovimientos() {
                     realizarMovimiento(torre_uno, torre_dos);
                     break;
                 case 14:
-                    realizarMovimiento(torre_dos, torre_tres);
+                    realizarMovimiento(torre_uno, torre_tres);
                     break;
                 case 15:
-                    realizarMovimiento(torre_uno, torre_tres);
+                    realizarMovimiento(torre_dos, torre_tres);
                     break;
             }
             contador++;
@@ -114,12 +114,12 @@ void JuegoTorresHanoi<t>::realizarTodosLosMovimientos() {
         }
     };
 
+    // Inicia los hilos en orden y espera a que cada uno termine antes de iniciar el siguiente
     std::thread hilo_uno(realizarMovimientosEnRango, 1, 5);
-    std::thread hilo_dos(realizarMovimientosEnRango, 6, 10);
-    std::thread hilo_tres(realizarMovimientosEnRango, 11, 15);
-
     hilo_uno.join();
+    std::thread hilo_dos(realizarMovimientosEnRango, 6, 10);
     hilo_dos.join();
+    std::thread hilo_tres(realizarMovimientosEnRango, 11, 15);
     hilo_tres.join();
 
     auto end = std::chrono::steady_clock::now();
