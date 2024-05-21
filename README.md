@@ -136,7 +136,3 @@ Los resultados obtenidos al comparar la implementación de las Torres de Hanoi c
 #### Conclusiones:
 Los resultados muestran que, para este problema específico de las Torres de Hanoi, la introducción de hilos no proporciona una mejora significativa en el rendimiento en comparación con la implementación sin hilos. La decisión de utilizar hilos debe basarse en un análisis detallado de las características del problema y las necesidades de rendimiento específicas.
 
-
-
-
-
