@@ -18,7 +18,7 @@ Lo que hace que la Torre de Hanoi sea interesante es la solución óptima para m
 
 # Proyecto de Torre de Hanoi con Templates, Nodos, Listas y Hilos.
 
-Este proyecto es la implementación de 2 juegos de la Torre de Hanoi uno de estos utilizando templates, nodos, listas este con los tiempos de ejecucion cronometrados y otro con sus mismas caracteristicas pero con el distitivo que usa hilos.
+Este proyecto es la implementación de 2 juegos de la Torre de Hanoi uno de estos utilizando templates, nodos, listas este con los tiempos de ejecución cronometrados y otro con sus mismas características pero con el distintivo que usa hilos.
 
 ## Descripción
 
@@ -40,7 +40,7 @@ El proyecto consiste en una aplicación de consola que permite jugar al juego de
 - Manejo efectivo de situaciones de error y excepciones en un entorno concurrente.
 
 ## Resultados del proyecto del Proyecto
-A continuacion de va a mostrar una tabla con los resultados de la solucion completa del algoritmo y se va a realizar una comparacion de tiempos entre el uso de hilos y cuando no se usan hilos. 
+A continuación se va a mostrar una tabla con los resultados de la solución completa del algoritmo y se va a realizar una comparación de tiempos entre el uso de hilos y cuando no se usan hilos. 
 
 |                      | Implementación       | Tiempo de Ejecución (s) | Tiempo Diferencia(s)|
 |----------------------|----------------------|-------------------------|---------------------|
@@ -99,8 +99,8 @@ A continuacion de va a mostrar una tabla con los resultados de la solucion compl
 
 Con base en estos resultados, podemos concluir que la implementación con hilos ofrece un mejor rendimiento en términos de tiempo de ejecución en comparación con la implementación sin hilos esto para el problema dado. Esto puede ser especialmente útil en situaciones donde se requiere procesamiento concurrente para mejorar la eficiencia de la aplicación.
 
-## A continuacion se va a mostrar otro Resultado con un enfoque diferente
-### Se realizo una solucion completa del algoritmo de las torres de hanoi del cual se utilizan 3 hilos para resolver los 15 pasos en una sola ejecucion y la otra solucion sin hilos siendo esta iterativa con ciclos.
+## A continuación se va a mostrar otro Resultado con un enfoque diferente
+### Se realizó una solución completa del algoritmo de las torres de hanoi en el cual se utilizan 3 hilos para resolver los 15 pasos en una sola ejecución y la otra solución sin hilos siendo esta iterativa con ciclos.
 
 |                      | Implementación       | Tiempo de Ejecución (s) | Tiempo Diferencia(s)|
 |----------------------|----------------------|-------------------------|---------------------|
